@@ -47,7 +47,7 @@ Expected Response:
     "cards": {
         [
             {
-                "suit": "SPADES",
+                "suit": "SPADE",
                 "value": "ACE",
                 "code": "AS"
             }
