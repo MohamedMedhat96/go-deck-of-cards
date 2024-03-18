@@ -4,7 +4,7 @@ A Golang API server that returns a hand/deck of cards, the server uses Gin as a 
 
 ## Starting the Server
 
-To start all you have to do is run the `docker-compose` up command, and the server will be served on `localhost:8080`
+To start all you have to do is run the `docker-compose up`  command, and the server will be served on `localhost:8080`
 
 ## Testing
 
