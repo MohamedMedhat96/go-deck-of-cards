@@ -45,7 +45,7 @@ func (dr *DeckRepositoryImpl) Get(ctx *gin.Context) (deck.DeckOperations, error)
 
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
-			return nil, fmt.Errorf("the uuid you provided does not exist")
+			return nil, nil
 		}
 		return nil, err
 	}

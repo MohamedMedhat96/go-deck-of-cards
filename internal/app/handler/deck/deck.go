@@ -34,7 +34,7 @@ func (h *deckHandler) CreateNewDeck(c *gin.Context) {
 	nd, err := h.service.CreateNewDeck(c, shuffled, codes)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusInternalServerError, &map[string]string{"error": err.Error()})
 		return
 	}
 
@@ -48,7 +48,12 @@ type Val struct {
 func (h *deckHandler) OpenDeck(c *gin.Context) {
 	nd, err := h.service.OpenDeck(c)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, err.Error())
+		c.JSON(http.StatusInternalServerError, &map[string]string{"error": err.Error()})
+		return
+	}
+
+	if nd == nil {
+		c.JSON(http.StatusNotFound, &map[string]string{"error": "The deck you are trying to open does not exist"})
 		return
 	}
 
@@ -59,10 +64,14 @@ func (h *deckHandler) DrawCard(c *gin.Context) {
 	nd, err := h.service.DrawCard(c, 1)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusInternalServerError, &map[string]string{"error": err.Error()})
 		return
 	}
 
+	if nd == nil {
+		c.JSON(http.StatusNotFound, &map[string]string{"error": "The deck you are trying to open does not exist"})
+		return
+	}
 	c.JSON(http.StatusOK, nd)
 }
 func (h *deckHandler) RegisterRoutesAndMiddleware(router *gin.Engine) {

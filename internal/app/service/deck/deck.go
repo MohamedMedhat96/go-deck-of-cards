@@ -49,6 +49,10 @@ func (ds *DeckServiceImpl) DrawCard(c *gin.Context, NumberOfCards int) (*dto.Dra
 		return nil, err
 	}
 
+	if sd == nil {
+		return nil, nil
+	}
+
 	if NumberOfCards > sd.GetRemainingCards() {
 		NumberOfCards = sd.GetRemainingCards()
 	}
@@ -82,6 +86,10 @@ func (ds *DeckServiceImpl) OpenDeck(c *gin.Context) (*dto.OpenDeckDTO, error) {
 
 	if err != nil {
 		return nil, err
+	}
+
+	if sd == nil {
+		return nil, nil
 	}
 
 	return &dto.OpenDeckDTO{
