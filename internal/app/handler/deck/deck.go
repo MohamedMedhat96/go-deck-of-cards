@@ -3,13 +3,14 @@ package handler
 import (
 	deck "go-deck-of-cards/internal/app/service/deck"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
 type Handler interface {
-	RegisterRoutesAndMiddleware(router *gin.Engine)
+	RegisterRoutes(router *gin.Engine)
 }
 
 type deckHandler struct {
@@ -34,7 +35,7 @@ func (h *deckHandler) CreateNewDeck(c *gin.Context) {
 	nd, err := h.service.CreateNewDeck(c, shuffled, codes)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, &map[string]string{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, &map[string]string{"error": err.Error()})
 		return
 	}
 
@@ -61,7 +62,19 @@ func (h *deckHandler) OpenDeck(c *gin.Context) {
 
 }
 func (h *deckHandler) DrawCard(c *gin.Context) {
-	nd, err := h.service.DrawCard(c, 1)
+	ns, exists := c.GetQuery("numberOfCards")
+	noc := 1
+
+	if exists {
+		var err error
+		noc, err = strconv.Atoi(ns)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, &map[string]string{"error": "The value you have entered for numberOfCards is not a number, please try again with a number"})
+			return
+		}
+	}
+
+	nd, err := h.service.DrawCard(c, noc)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, &map[string]string{"error": err.Error()})
@@ -74,16 +87,9 @@ func (h *deckHandler) DrawCard(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, nd)
 }
-func (h *deckHandler) RegisterRoutesAndMiddleware(router *gin.Engine) {
+
+func (h *deckHandler) RegisterRoutes(router *gin.Engine) {
 	router.POST("/deck", h.CreateNewDeck)
 	router.GET("/deck/:uuid", h.OpenDeck)
 	router.POST("/deck/:uuid/draw", h.DrawCard)
-
-	router.Use(func(c *gin.Context) {
-		uuid := c.Param("uuid")
-		if uuid != "" {
-
-			c.Set("uuid", uuid)
-		}
-	})
 }

@@ -19,7 +19,7 @@ func TestDeckFactory_CreateStandardDeck(t *testing.T) {
 	deckType := "standard"
 	codes := []string{"AS", "KD", "10C"}
 
-	createdDeck := factory.Create(deckType, codes)
+	createdDeck, _ := factory.Create(deckType, codes)
 
 	if standardDeck, ok := createdDeck.(*deck.StandardDeck); ok {
 		if len(standardDeck.GetCards()) != len(codes) {

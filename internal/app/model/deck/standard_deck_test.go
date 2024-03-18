@@ -27,7 +27,7 @@ func TestNewStandardDeck(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			deck := NewStandardDeck(tt.codes)
+			deck, _ := NewStandardDeck(tt.codes)
 
 			if gotLen := len(deck.Cards); gotLen != tt.wantLen {
 				t.Errorf("NewStandardDeck() gotLen = %v, want %v", gotLen, tt.wantLen)

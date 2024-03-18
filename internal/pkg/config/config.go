@@ -6,6 +6,7 @@ import (
 
 var (
 	ServerPort string
+	ServerHost string
 
 	MongoDbURI   string
 	DatabaseName string
@@ -13,9 +14,9 @@ var (
 
 func init() {
 	ServerPort = getEnv("SERVER_PORT", "8080")
+	ServerHost = getEnv("SERVER_HOST", "0.0.0.0")
 
 	MongoDbURI = getEnv("MONGO_DB_URI", "mongodb://localhost:27017/")
-
 	DatabaseName = getEnv("DATABASE_NAME", "deck")
 }
 

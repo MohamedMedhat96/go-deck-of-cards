@@ -58,9 +58,12 @@ func GenerateStandardCards(codes []string) ([]Card, error) {
 		return cards, nil
 	}
 
+	ec := []string{}
+
 	for _, code := range codes {
 		if len(code) < 2 {
-			return nil, fmt.Errorf("invalid code: %s", code)
+			ec = append(ec, code)
+			continue
 		}
 		valueCode, suitCode := code[:len(code)-1], code[len(code)-1:]
 
@@ -68,10 +71,15 @@ func GenerateStandardCards(codes []string) ([]Card, error) {
 		value, valueOk := valueMap[valueCode]
 
 		if !suitOk || !valueOk {
-			return nil, fmt.Errorf("invalid code: %s", code)
+			ec = append(ec, code)
+			continue
 		}
 
 		cards = append(cards, Card{Suit: suit, Value: value, Code: code})
+	}
+
+	if len(ec) > 0 {
+		return nil, fmt.Errorf("invalid code(s): %v", ec)
 	}
 
 	SortStandardCards(cards)

@@ -10,10 +10,10 @@ type StandardDeck struct {
 	Deck `bson:",inline"`
 }
 
-func NewStandardDeck(codes []string) *StandardDeck {
+func NewStandardDeck(codes []string) (*StandardDeck, error) {
 
-	cards, _ := card.GenerateStandardCards(codes)
+	cards, err := card.GenerateStandardCards(codes)
 
-	return &StandardDeck{Deck{RemainingCards: len(cards), Shuffled: false, UUID: uuid.New().String(), Cards: cards, Type: "standard"}}
+	return &StandardDeck{Deck{RemainingCards: len(cards), Shuffled: false, UUID: uuid.New().String(), Cards: cards, Type: "standard"}}, err
 
 }

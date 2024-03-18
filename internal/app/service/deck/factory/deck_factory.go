@@ -13,7 +13,7 @@ func NewDeckFactory() *DeckFactory {
 	return singletonInstance
 }
 
-func (df *DeckFactory) Create(Type string, Codes []string) deck.DeckOperations {
+func (df *DeckFactory) Create(Type string, Codes []string) (deck.DeckOperations, error) {
 	switch Type {
 	case "standard":
 		return deck.NewStandardDeck(Codes)

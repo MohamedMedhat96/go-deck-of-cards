@@ -1,7 +1,6 @@
 package service
 
 import (
-	"fmt"
 	"go-deck-of-cards/internal/app/dto"
 	card "go-deck-of-cards/internal/app/model/card"
 	"go-deck-of-cards/internal/app/repository"
@@ -27,7 +26,11 @@ func NewDeckService() DeckService {
 
 func (di *DeckServiceImpl) CreateNewDeck(c *gin.Context, Shuffled bool, Codes []string) (*dto.NewDeckDTO, error) {
 
-	d := factory.NewDeckFactory().Create("standard", Codes)
+	d, err := factory.NewDeckFactory().Create("standard", Codes)
+
+	if err != nil {
+		return nil, err
+	}
 
 	if Shuffled {
 		d.Shuffle()
@@ -74,7 +77,7 @@ func (ds *DeckServiceImpl) OpenDeck(c *gin.Context) (*dto.OpenDeckDTO, error) {
 	_, exists := c.Get("uuid")
 
 	if !exists {
-		return nil, fmt.Errorf("please provide a uuid")
+		return nil, nil
 	}
 
 	sd, err := ds.repo.Get(c)
