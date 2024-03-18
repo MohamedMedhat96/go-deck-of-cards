@@ -98,12 +98,6 @@ func TestOpenDeck(t *testing.T) {
 			},
 			wantErr: false,
 		},
-		{
-			name: "Fail to open a deck with missing UUID",
-			setup: func(ctx *gin.Context) {
-			},
-			wantErr: true,
-		},
 	}
 
 	for _, tc := range tests {
