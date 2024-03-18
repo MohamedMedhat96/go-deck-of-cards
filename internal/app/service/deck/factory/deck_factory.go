@@ -1,6 +1,6 @@
-package deck
+package service
 
-import "go-deck-of-cards/internal/app/model/deck"
+import deck "go-deck-of-cards/internal/app/model/deck"
 
 // DeckFactory struct for creating decks.
 type DeckFactory struct{}

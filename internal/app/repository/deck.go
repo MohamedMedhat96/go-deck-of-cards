@@ -2,7 +2,7 @@ package repository
 
 import (
 	"fmt"
-	"go-deck-of-cards/internal/app/model/deck"
+	deck "go-deck-of-cards/internal/app/model/deck"
 	"go-deck-of-cards/internal/pkg/db"
 
 	"github.com/gin-gonic/gin"

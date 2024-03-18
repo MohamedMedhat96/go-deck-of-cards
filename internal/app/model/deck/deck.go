@@ -1,6 +1,7 @@
-package deck
+package model
 
 import (
+	"fmt"
 	card "go-deck-of-cards/internal/app/model/card"
 	"math/rand"
 	"time"
@@ -53,6 +54,11 @@ func (d *Deck) Deal(NumberOfCards int) []card.Card {
 		return []card.Card{}
 	}
 
+	if NumberOfCards > d.GetRemainingCards() {
+		NumberOfCards = d.GetRemainingCards()
+	}
+	fmt.Println(NumberOfCards)
+	fmt.Println(d.RemainingCards)
 	c := d.Cards[:NumberOfCards]
 	d.Cards = d.Cards[NumberOfCards:]
 	d.RemainingCards = d.RemainingCards - NumberOfCards

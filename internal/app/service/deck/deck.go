@@ -52,11 +52,6 @@ func (ds *DeckServiceImpl) DrawCard(c *gin.Context, NumberOfCards int) (*dto.Dra
 	if sd == nil {
 		return nil, nil
 	}
-
-	if NumberOfCards > sd.GetRemainingCards() {
-		NumberOfCards = sd.GetRemainingCards()
-	}
-
 	var cards []card.Card
 
 	if sd.GetRemainingCards() > 0 {

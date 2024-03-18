@@ -1,4 +1,4 @@
-package deck
+package model
 
 import (
 	card "go-deck-of-cards/internal/app/model/card"
