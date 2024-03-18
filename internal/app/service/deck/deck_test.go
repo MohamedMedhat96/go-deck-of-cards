@@ -1,6 +1,7 @@
 package service
 
 import (
+	"go-deck-of-cards/internal/app/mocks"
 	card "go-deck-of-cards/internal/app/model/card"
 	deck "go-deck-of-cards/internal/app/model/deck"
 	"testing"
@@ -9,30 +10,10 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-	"go.mongodb.org/mongo-driver/bson"
 )
 
-type MockRepository struct {
-	mock.Mock
-}
-
-func (m *MockRepository) Add(c *gin.Context, d deck.DeckOperations) (bool, error) {
-	args := m.Called(c, d)
-	return args.Get(0).(bool), args.Error(1)
-}
-
-func (m *MockRepository) Get(c *gin.Context) (deck.DeckOperations, error) {
-	args := m.Called(c)
-	return args.Get(0).(deck.DeckOperations), args.Error(1)
-}
-
-func (m *MockRepository) Update(c *gin.Context, update bson.M) (bool, error) {
-	args := m.Called(c, update)
-	return args.Bool(0), args.Error(1)
-}
-
 func TestDrawCard(t *testing.T) {
-	mockRepo := new(MockRepository)
+	mockRepo := new(mocks.MockDeckRepo)
 	service := DeckServiceImpl{repo: mockRepo}
 
 	tests := []struct {
@@ -81,7 +62,7 @@ func TestDrawCard(t *testing.T) {
 }
 
 func TestOpenDeck(t *testing.T) {
-	mockRepo := new(MockRepository)
+	mockRepo := new(mocks.MockDeckRepo)
 	service := DeckServiceImpl{repo: mockRepo}
 
 	tests := []struct {
@@ -118,7 +99,7 @@ func TestOpenDeck(t *testing.T) {
 }
 
 func TestCreateNewStandardDeck(t *testing.T) {
-	mockRepo := new(MockRepository)
+	mockRepo := new(mocks.MockDeckRepo)
 	service := DeckServiceImpl{repo: mockRepo}
 
 	mockRepo.On("Add", mock.Anything, mock.AnythingOfType("*model.StandardDeck")).Return(true, nil)
