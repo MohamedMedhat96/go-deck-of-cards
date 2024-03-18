@@ -38,7 +38,6 @@ func SortStandardCards(cards []Card) {
 		return orderValue[cardI.Value] < orderValue[cardJ.Value]
 	}
 
-	// Sort the cards using the custom sorting function
 	sort.SliceStable(cards, sortFunc)
 }
 func GenerateStandardCards(codes []string) ([]Card, error) {

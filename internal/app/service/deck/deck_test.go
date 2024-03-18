@@ -35,7 +35,6 @@ func TestDrawCard(t *testing.T) {
 	mockRepo := new(MockRepository)
 	service := DeckServiceImpl{repo: mockRepo}
 
-	// Define test cases
 	tests := []struct {
 		name          string
 		numberOfCards int

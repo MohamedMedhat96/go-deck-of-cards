@@ -2,7 +2,6 @@ package service
 
 import deck "go-deck-of-cards/internal/app/model/deck"
 
-// DeckFactory struct for creating decks.
 type DeckFactory struct{}
 
 var singletonInstance *DeckFactory

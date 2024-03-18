@@ -18,14 +18,6 @@ type DeckRepository interface {
 	Get(ctx *gin.Context) (deck.DeckOperations, error)
 
 	Update(ctx *gin.Context, filters bson.M) (bool, error)
-
-	// Delete(deck deck.Deck) (bool, error)
-
-	// AddMany(deck []deck.Deck) (bool, error)
-
-	// UpdateMany(deck []deck.Deck) (bool, error)
-
-	// DeleteMany(deck []deck.Deck) (bool, error)
 }
 
 type DeckRepositoryImpl struct{}
