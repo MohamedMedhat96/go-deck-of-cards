@@ -89,7 +89,7 @@ func (h *deckHandler) DrawCard(c *gin.Context) {
 }
 
 func (h *deckHandler) RegisterRoutes(router *gin.Engine) {
-	router.POST("/deck", h.CreateNewDeck)
-	router.GET("/deck/:uuid", h.OpenDeck)
-	router.POST("/deck/:uuid/draw", h.DrawCard)
+	router.POST("/decks", h.CreateNewDeck)
+	router.GET("/decks/:uuid", h.OpenDeck)
+	router.POST("/decks/:uuid/draw", h.DrawCard)
 }

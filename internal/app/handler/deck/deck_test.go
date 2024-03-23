@@ -34,7 +34,7 @@ func TestCreateNewDeck(t *testing.T) {
 		}
 		ms.On("CreateNewDeck", mock.Anything, true, []string{"AS", "KD", "10C"}).Return(expectedDeck, nil)
 
-		req, _ := http.NewRequest("POST", "/deck?shuffled=true&cards=AS,KD,10C", nil)
+		req, _ := http.NewRequest("POST", "/decks?shuffled=true&cards=AS,KD,10C", nil)
 		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 		w := httptest.NewRecorder()
 		router.ServeHTTP(w, req)
@@ -48,7 +48,7 @@ func TestCreateNewDeck(t *testing.T) {
 
 		ms.On("CreateNewDeck", mock.Anything, mock.Anything, mock.Anything).Return((*dto.NewDeckDTO)(nil), fmt.Errorf("incorrect code(s): 10CS"))
 
-		req, _ := http.NewRequest("POST", "/deck?cards=AS,KD,10CS", nil)
+		req, _ := http.NewRequest("POST", "/decks?cards=AS,KD,10CS", nil)
 		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 		w := httptest.NewRecorder()
 		router.ServeHTTP(w, req)
@@ -70,7 +70,7 @@ func TestOpenDeck(t *testing.T) {
 		}
 		ms.On("OpenDeck", mock.Anything).Return(expectedDeck, nil)
 
-		req, _ := http.NewRequest("GET", fmt.Sprintf("/deck/%s", "some-uuid"), nil)
+		req, _ := http.NewRequest("GET", fmt.Sprintf("/decks/%s", "some-uuid"), nil)
 		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 		w := httptest.NewRecorder()
 		router.ServeHTTP(w, req)
@@ -84,7 +84,7 @@ func TestOpenDeck(t *testing.T) {
 
 		ms.On("OpenDeck", mock.Anything).Return((*dto.OpenDeckDTO)(nil), nil)
 
-		req, _ := http.NewRequest("GET", fmt.Sprintf("/deck/%s", "some-uuid"), nil)
+		req, _ := http.NewRequest("GET", fmt.Sprintf("/decks/%s", "some-uuid"), nil)
 
 		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 		w := httptest.NewRecorder()
@@ -106,7 +106,7 @@ func TestDrawCard(t *testing.T) {
 
 		ms.On("DrawCard", mock.Anything, noc).Return(expectedDeck, nil)
 
-		req, _ := http.NewRequest("POST", fmt.Sprintf("/deck/some-uuid/draw?numberOfCards=%v", noc), nil)
+		req, _ := http.NewRequest("POST", fmt.Sprintf("/decks/some-uuid/draw?numberOfCards=%v", noc), nil)
 		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 		w := httptest.NewRecorder()
 		router.ServeHTTP(w, req)

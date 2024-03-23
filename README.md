@@ -12,11 +12,11 @@ To run the tests just run the `go test ./...` and all test files should run
 
 
 ## Endpoints
-There are three endpoints on this server, `POST /deck`, `GET /deck/:uuid` and `POST /deck/:uuid/draw`, below is how you can use each one
+There are three endpoints on this server, `POST /decks`, `GET /decks/:uuid` and `POST /decks/:uuid/draw`, below is how you can use each one
 
-### `POST /deck`
+### `POST /decks`
 
-This endpoint creates a new deck of cards returning a 52 card unshuffled standard deck, you can request the card to be shuffled by passing the `shuffled` param to the request like so `POST /deck?shuffled=true`. You can also request a subset of the cards by sending out a comma separated string of the codes of the specific cards you want in the `cards` param like so `POST /deck?cards=AC,KH,1S`, however the codes are case sensitive
+This endpoint creates a new deck of cards returning a 52 card unshuffled standard deck, you can request the card to be shuffled by passing the `shuffled` param to the request like so `POST /decks?shuffled=true`. You can also request a subset of the cards by sending out a comma separated string of the codes of the specific cards you want in the `cards` param like so `POST /decks?cards=AC,KH,1S`, however the codes are case sensitive
 
 Expected Response:
 
@@ -36,9 +36,9 @@ Expected Error:
 ```
 
 
-### `POST /deck/:uuid/draw`
+### `POST /decks/:uuid/draw`
 
-This endpoint creates returns a card from a predefined deck, you can request the number of cards  by passing the `numberOfCards` param to the request like so `POST /deck/:uuid/draw?numberOfCards=5`. 
+This endpoint creates returns a card from a predefined deck, you can request the number of cards  by passing the `numberOfCards` param to the request like so `POST /decks/:uuid/draw?numberOfCards=5`. 
 
 Expected Response:
 
@@ -65,7 +65,7 @@ Expected Error:
 ```
 
 
-### `GET /deck`
+### `GET /decks`
 
 This endpoint returns the deck and all the cards in it. 
 
